@@ -283,7 +283,7 @@ public:
         cout << "\n--- Member List ---\n";
         for (int i = 0; i < memberCount; i++) {
             const Member &member = members[i];
-            cout << "ID: " << member.getId() << " | Name: " << member.getName() << " | Borrowed Books: ";
+            cout << "ID: " << member.getId() << " | Name: " << member.getName() << " | Borrowed Books ID: ";
 
             if (member.getBorrowedCount() == 0) {
                 cout << "None";
