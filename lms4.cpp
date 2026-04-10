@@ -4,6 +4,9 @@
 #ifdef _WIN32
 #include <windows.h>
 #endif
+#ifndef ENABLE_VIRTUAL_TERMINAL_PROCESSING
+#define ENABLE_VIRTUAL_TERMINAL_PROCESSING 0x0004
+#endif
 using namespace std;
 
 // Defines maximum storage limits for books, members, borrow records, and staff accounts. #limit
@@ -67,11 +70,11 @@ public:
         id = newId;
         name = newName;
     }
-    int getId() const { 
-        return id; 
+    int getId() const {
+        return id;
     }
-    string getName() const { 
-        return name; 
+    string getName() const {
+        return name;
     }
 
     // Provides a virtual display contract for runtime polymorphism. #polymorphism
@@ -92,7 +95,7 @@ private:
     int issuedToMemberId;
     // Access specifier for public interface of book operations. #encapsulation
 public:
-    // Default constructor sets up a book with no title, author, and not issued. #constructor 
+    // Default constructor sets up a book with no title, author, and not issued. #constructor
     Book() {
         setBase(0, "");
         author = "";
@@ -278,7 +281,7 @@ private:
     int nextMemberId;
     int nextStaffId;
 
-    // Holds the embedded administrator account instance. 
+    // Holds the embedded administrator account instance.
     Admin admin;
 
     // Tracks whether the current authenticated session belongs to admin. #check
@@ -351,11 +354,11 @@ private:
             if (!(cin >> userType)) {
                 cin.clear(); // Clear error state
                 cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore invalid input
-                cout << C_RED << "Invalid input. Please enter a number.\n" << C_RESET; 
+                cout << C_RED << "Invalid input. Please enter a number.\n" << C_RESET;
                 continue;
             }
             // Clears input buffer to prepare for reading credentials as text. #validation
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
             // Reads credentials as text to preserve user-provided values. #validation
             string inputUser, inputPassword;
@@ -589,20 +592,20 @@ public:
     void showMenu() const {
         cout << C_BOLD << C_CYAN << R"(
     ============================================================
-       _      _____ ____  _____         ________     __ 
+       _      _____ ____  _____         ________     __
       | |    |_   _|  _ \|  __ \    /\  |  __ \ \   / /
-      | |      | | | |_) | |__) |  /  \ | |__) \ \_/ / 
-      | |      | | |  _ <|  _  /  / /\ \|  _  / \   /  
-      | |____ _| |_| |_) | | \ \ / ____ \ | \ \  | |   
-      |______|_____|____/|_|  \_\/_/    \_\_|  \_\_|   
+      | |      | | | |_) | |__) |  /  \ | |__) \ \_/ /
+      | |      | | |  _ <|  _  /  / /\ \|  _  / \   /
+      | |____ _| |_| |_) | | \ \ / ____ \ | \ \  | |
+      |______|_____|____/|_|  \_\/_/    \_\_|  \_\_|
 
-               _          _  __          _              
-              | |        | |/ /         | |             
-            __| | ___    | ' / _ __ __ _| | _____  __ _  
-           / _` |/ _ \   |  < | '__/ _` | |/ / _ \| '_ \. 
+               _          _  __          _
+              | |        | |/ /         | |
+            __| | ___    | ' / _ __ __ _| | _____  __ _
+           / _` |/ _ \   |  < | '__/ _` | |/ / _ \| '_ \.
           | (_| |  __/   | . \  | | (_| |   <  __/| | | |
            \__,_|\___|   |_|\_\_|  \__,_|_|\_\____|_| |_|
-                                                       
+
     ============================================================
     )" << C_RESET << endl;
         cout << C_BLUE << "1. Add Book" << endl;
